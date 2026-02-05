@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hello Cutie Cloud World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(to bottom, #ffd1e8, #fff0f7);
+  overflow: hidden;
+  cursor: none;
+}
+
+/* PARALLAX CLOUDS */
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 100px;
+  opacity: 0.9;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: 20px;
+}
+
+.cloud::after {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  right: 20px;
+}
+
+/* LANDING CARD */
+.container {
+  position: relative;
+  z-index: 5;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: rgba(255,255,255,0.9);
+  padding: 3rem;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(255, 120, 180, 0.4);
+}
+
+h1 {
+  font-size: 3.2rem;
+  color: #ff4fa1;
+}
+
+h1 span {
+  color: #ff9acb;
+}
+
+p {
+  margin: 1rem 0 2rem;
+  color: #ff6fb2;
+  font-size: 1.2rem;
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  background: #ff5fa2;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(255, 95, 162, 0.5);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+/* MUSIC TOGGLE */
+.music-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff9acb;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(255, 120, 180, 0.5);
+}
+
+/* CURSOR HEART */
+.cursor-heart {
+  position: fixed;
+  pointer-events: none;
+  font-size: 1.2rem;
+  animation: floatUp 1s forwards;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -80px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* GLITTER */
+.glitter {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1rem;
+  animation: glitter 0.8s forwards;
+}
+
+@keyframes glitter {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(2); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PARALLAX CLOUDS -->
+<div class="cloud" data-speed="0.2" style="width:240px;height:70px;top:80px;left:50px;"></div>
+<div class="cloud" data-speed="0.4" style="width:300px;height:90px;top:200px;left:400px;"></div>
+<div class="cloud" data-speed="0.1" style="width:200px;height:60px;top:350px;left:150px;"></div>
+
+<!-- MUSIC -->
+<audio id="bg-music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c86c8d9c8b.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-toggle" id="musicBtn">🎵</div>
+
+<!-- CONTENT -->
+<div class="container">
+  <div class="card">
+    <h1>🌸 Hello <span>Cutie</span> 🌸</h1>
+    <p>
+      Soft pink skies, floating clouds, sparkles,  
+      and main-character energy ☁️💗
+    </p>
+
+    <div class="buttons">
+      <a href="#" class="btn">Enter Cloud ☁️</a>
+      <a href="#" class="btn">Join Cuties 🎀</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CURSOR HEARTS */
+document.addEventListener('mousemove', (e) => {
+  const heart = document.createElement('div');
+  heart.className = 'cursor-heart';
+  heart.textContent = '💖';
+  heart.style.left = e.clientX + 'px';
+  heart.style.top = e.clientY + 'px';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 1000);
+});
+
+/* PARALLAX */
+document.addEventListener('mousemove', (
