@@ -1,188 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Hello Cutie Cloud World</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Dreamscape</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Quicksand', sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Quicksand',sans-serif;
 }
 
-body {
-  height: 100vh;
-  background: linear-gradient(to bottom, #ffd1e8, #fff0f7);
-  overflow: hidden;
-  cursor: none;
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(-45deg,#ffd1e8,#ffc2f2,#fff0f7,#ffe4f3);
+  background-size:400% 400%;
+  animation:gradientShift 12s ease infinite;
+  cursor:none;
 }
 
-/* PARALLAX CLOUDS */
-.cloud {
-  position: absolute;
-  background: white;
-  border-radius: 100px;
-  opacity: 0.9;
+/* Animated gradient */
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-.cloud::before,
-.cloud::after {
-  content: '';
-  position: absolute;
-  background: white;
-  border-radius: 50%;
+/* Floating clouds */
+.cloud{
+  position:absolute;
+  background:white;
+  border-radius:100px;
+  opacity:0.8;
+  filter:blur(1px);
+  animation:floatCloud linear infinite;
 }
 
-.cloud::before {
-  width: 60px;
-  height: 60px;
-  top: -30px;
-  left: 20px;
+@keyframes floatCloud{
+  from{transform:translateX(-200px)}
+  to{transform:translateX(120vw)}
 }
 
-.cloud::after {
-  width: 80px;
-  height: 80px;
-  top: -40px;
-  right: 20px;
+/* Glass Card */
+.container{
+  position:relative;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
 }
 
-/* LANDING CARD */
-.container {
-  position: relative;
-  z-index: 5;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.card{
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,0.4);
+  padding:3rem;
+  border-radius:40px;
+  text-align:center;
+  box-shadow:0 25px 60px rgba(255,100,180,0.4);
+  animation:fadeUp 1.5s ease;
 }
 
-.card {
-  background: rgba(255,255,255,0.9);
-  padding: 3rem;
-  border-radius: 40px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(255, 120, 180, 0.4);
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(50px)}
+  to{opacity:1; transform:translateY(0)}
 }
 
-h1 {
-  font-size: 3.2rem;
-  color: #ff4fa1;
+h1{
+  font-size:3rem;
+  color:#ff4fa1;
 }
 
-h1 span {
-  color: #ff9acb;
+p{
+  margin:1rem 0 2rem;
+  color:#ff6fb2;
 }
 
-p {
-  margin: 1rem 0 2rem;
-  color: #ff6fb2;
-  font-size: 1.2rem;
+/* Buttons */
+.buttons{
+  display:flex;
+  gap:1rem;
+  justify-content:center;
 }
 
-/* BUTTONS */
-.buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
+.btn{
+  position:relative;
+  padding:14px 28px;
+  border-radius:999px;
+  background:#ff5fa2;
+  color:white;
+  text-decoration:none;
+  font-weight:700;
+  overflow:hidden;
+  transition:0.3s;
 }
 
-.btn {
-  background: #ff5fa2;
-  color: white;
-  padding: 14px 30px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 700;
-  box-shadow: 0 10px 25px rgba(255, 95, 162, 0.5);
-  transition: all 0.3s ease;
+.btn:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(255,95,162,0.6);
 }
 
-.btn:hover {
-  transform: translateY(-5px) scale(1.05);
+/* Ripple effect */
+.btn::after{
+  content:'';
+  position:absolute;
+  width:0;
+  height:0;
+  background:rgba(255,255,255,0.4);
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  transition:0.6s;
 }
 
-/* MUSIC TOGGLE */
-.music-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #ff9acb;
-  color: white;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.4rem;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 8px 20px rgba(255, 120, 180, 0.5);
+.btn:active::after{
+  width:200px;
+  height:200px;
+  opacity:0;
 }
 
-/* CURSOR HEART */
-.cursor-heart {
-  position: fixed;
-  pointer-events: none;
-  font-size: 1.2rem;
-  animation: floatUp 1s forwards;
+/* Music button */
+.music{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  background:#ff9acb;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.5rem;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(255,120,180,0.5);
+  transition:0.3s;
+  z-index:20;
 }
 
-@keyframes floatUp {
-  from {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translate(-50%, -80px) scale(0.3);
-    opacity: 0;
-  }
+.music:hover{
+  transform:rotate(15deg) scale(1.1);
 }
 
-/* GLITTER */
-.glitter {
-  position: absolute;
-  pointer-events: none;
-  font-size: 1rem;
-  animation: glitter 0.8s forwards;
+/* Sparkles */
+.sparkle{
+  position:fixed;
+  pointer-events:none;
+  font-size:1rem;
+  animation:sparkleAnim 0.8s forwards;
 }
 
-@keyframes glitter {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(2); }
+@keyframes sparkleAnim{
+  from{opacity:1; transform:scale(1)}
+  to{opacity:0; transform:scale(2)}
+}
+
+/* Cursor hearts */
+.heart{
+  position:fixed;
+  pointer-events:none;
+  animation:floatUp 1s forwards;
+}
+
+@keyframes floatUp{
+  from{opacity:1; transform:translate(-50%,-50%)}
+  to{opacity:0; transform:translate(-50%,-100px)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- PARALLAX CLOUDS -->
-<div class="cloud" data-speed="0.2" style="width:240px;height:70px;top:80px;left:50px;"></div>
-<div class="cloud" data-speed="0.4" style="width:300px;height:90px;top:200px;left:400px;"></div>
-<div class="cloud" data-speed="0.1" style="width:200px;height:60px;top:350px;left:150px;"></div>
+<div class="music" id="musicBtn">🎵</div>
 
-<!-- MUSIC -->
-<audio id="bg-music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c86c8d9c8b.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c86c8d9c8b.mp3" type="audio/mpeg">
 </audio>
 
-<div class="music-toggle" id="musicBtn">🎵</div>
-
-<!-- CONTENT -->
 <div class="container">
   <div class="card">
-    <h1>🌸 Hello <span>Cutie</span> 🌸</h1>
-    <p>
-      Soft pink skies, floating clouds, sparkles,  
-      and main-character energy ☁️💗
-    </p>
-
+    <h1>🌸 Cloud Dreamscape 🌸</h1>
+    <p>Main character energy. Floating skies. Soft girl era activated.</p>
     <div class="buttons">
       <a href="#" class="btn">Enter Cloud ☁️</a>
       <a href="#" class="btn">Join Cuties 🎀</a>
@@ -191,16 +196,64 @@ p {
 </div>
 
 <script>
-/* CURSOR HEARTS */
-document.addEventListener('mousemove', (e) => {
-  const heart = document.createElement('div');
-  heart.className = 'cursor-heart';
-  heart.textContent = '💖';
-  heart.style.left = e.clientX + 'px';
-  heart.style.top = e.clientY + 'px';
+
+/* Auto floating clouds */
+function createCloud(size, top, duration){
+  const cloud=document.createElement('div');
+  cloud.className='cloud';
+  cloud.style.width=size+'px';
+  cloud.style.height=size/3+'px';
+  cloud.style.top=top+'vh';
+  cloud.style.animationDuration=duration+'s';
+  document.body.appendChild(cloud);
+}
+createCloud(200,20,40);
+createCloud(300,50,60);
+createCloud(150,70,35);
+
+/* Music toggle */
+const music=document.getElementById('bgMusic');
+const btn=document.getElementById('musicBtn');
+
+btn.onclick=()=>{
+  if(music.paused){
+    music.play();
+    btn.style.background="#ff5fa2";
+  }else{
+    music.pause();
+    btn.style.background="#ff9acb";
+  }
+}
+
+/* Cursor hearts optimized */
+let heartCooldown=false;
+document.addEventListener('mousemove',e=>{
+  if(heartCooldown) return;
+  heartCooldown=true;
+
+  const heart=document.createElement('div');
+  heart.className='heart';
+  heart.textContent='💖';
+  heart.style.left=e.clientX+'px';
+  heart.style.top=e.clientY+'px';
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 1000);
+
+  setTimeout(()=>heart.remove(),1000);
+  setTimeout(()=>heartCooldown=false,50);
 });
 
-/* PARALLAX */
-document.addEventListener('mousemove', (
+/* Random sparkles */
+setInterval(()=>{
+  const sparkle=document.createElement('div');
+  sparkle.className='sparkle';
+  sparkle.textContent='✨';
+  sparkle.style.left=Math.random()*window.innerWidth+'px';
+  sparkle.style.top=Math.random()*window.innerHeight+'px';
+  document.body.appendChild(sparkle);
+  setTimeout(()=>sparkle.remove(),800);
+},300);
+
+</script>
+
+</body>
+</html>
